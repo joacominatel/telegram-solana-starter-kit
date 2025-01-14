@@ -25,8 +25,17 @@ export function Homepage() {
 
   const handleAuthenticate = () => {
     if (!initData?.user?.id) return;
-    let url = connect(initData?.user?.id);
-    window.location.href = url;
+  
+    const isPhantomInstalled = window?.phantom?.solana?.isPhantom;
+  
+    if (isPhantomInstalled) {
+      // generate the connection URL
+      const url = connect(initData?.user?.id);
+      window.location.href = url; // redirect to Phantom
+    } else {
+      // redirect to Phantom website 
+      window.location.href = "https://phantom.com/"; // here you will need to replace url depending on user agent
+    }
   };
 
   useEffect(() => {
